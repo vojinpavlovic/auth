@@ -18,3 +18,14 @@ DB_DATABASE="your_db_table"
 
 AMQP_URL="your_amqp_url"
 ```
+
+#### Dependencies
+- [express](https://www.npmjs.com/package/express)
+- [express-session](https://www.npmjs.com/package/express-session)
+- [amqplib](https://www.npmjs.com/package/amqplib)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [redis](https://www.npmjs.com/package/redis)
+- [connect-redis](https://www.npmjs.com/package/connect-redis)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [mysql](https://www.npmjs.com/package/mysql)
+- [validator](https://www.npmjs.com/package/validator)
