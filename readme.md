@@ -10,8 +10,6 @@ Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Arch
 
 - If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
 
-Once you complete this step, go to next <a href="#env">step</a>
-
 ### Where does Auth Server stand in service oriented architecture
 Vasa Knjiga Auth is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
 
@@ -49,7 +47,7 @@ graph TD;
     Response/4xx-->Customer;
 ```
 
-## [](#env) Env configuration
+## Env configuration
 In order to run auth server, first you would need to configure enviornment file.
 Create .env file in root directory, copy the code block below. For more information of which type and is there default value you can check table below
 
