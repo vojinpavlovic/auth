@@ -18,10 +18,10 @@ graph TD;
     Nginx-->Auth;
     Auth-->Nginx;
     Auth-->Publish-->Queue;
-    Nginx-->Resource
-    Resource-->Consume-->Queue
-    Auth-->MySQL
-    Auth-->Redis
+    Nginx-->Resource;
+    Resource-->Consume-->Queue;
+    Auth-->MySQL;
+    Auth-->Redis;
 ```
 
 ### How does session managment work with microservices
