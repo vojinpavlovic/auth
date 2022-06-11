@@ -1,7 +1,7 @@
-# Vasa Knjiga Auth
+# 📚 Vasa Knjiga Auth
 Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
 
-## Prerequisites
+## 📋 Prerequisites
 [MySQL](https://mysql.com), [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/)
 
 - If you are not sure how to host it. Here is how to host your MySQL database on [windows](https://www.cloudways.com/blog/configure-virtual-host-on-windows-10-for-wordpress/), if you are a linux user you can follow this tutorial [linux ubuntu >= 19.04](https://www.geeksforgeeks.org/hosting-mysql-server-on-linux/), for Mac users [MacOS](https://medium.com/macoclock/mysql-on-mac-getting-started-cecb65b78e).
@@ -10,7 +10,7 @@ Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Arch
 
 - If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
 
-### Where does Auth Server stand in service oriented architecture
+#### Where does Auth Server stand in service oriented architecture
 Vasa Knjiga Auth is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
 
 ```mermaid
@@ -24,7 +24,7 @@ graph TD;
     Auth-->Redis;
 ```
 
-### How does session managment work with microservices
+#### How does session managment work with microservices
 It's behavior is to either send 2xx for success or 4xx for failure as subrequest for nginx and nginx will either proxy pass if 2xx or return 4xx response to customer.
 
 - Case when auth/required returns 2xx status http code
@@ -47,7 +47,7 @@ graph TD;
     Response/4xx-->Customer;
 ```
 
-## Env configuration
+## ⚙️ Env configuration
 In order to run auth server, first you would need to configure enviornment file.
 Create .env file in root directory, copy the code block below. For more information of which type and is there default value you can check table below
 
