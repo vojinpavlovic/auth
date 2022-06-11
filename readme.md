@@ -78,9 +78,6 @@ REDIS_PASS=""
 AMQP_URL=""
 ```
 
-## 🛣️ Routes 
-In construction
-
 ## 🗀 Folder Structure
 I follow simple folder structure that you can find below. 
 
