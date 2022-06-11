@@ -79,6 +79,8 @@ AMQP_URL=""
 ```
 
 ## Folder Structure
+I follow simple folder structure that you can find below. 
+
 ```
     .
     ├── # Top level directory
@@ -86,12 +88,12 @@ AMQP_URL=""
             ├── config # Here stands the whole configurations for a application 
             ├── helpers # Function that execute specific mini tasks
             ├── routes # All routes handlers
-            ├── routes # SQL or database operations
-            ├── routes # Startup processes in example as mysql, rabbitmq and redis connections
+            ├── sql # SQL or database operations
+            ├── startup # Startup processes in example as mysql, rabbitmq and redis connections
             ├── utils # Functions that return, print formatted strings or for debugging
 ```
 
-## 🪣 Dependencies
+## 🪣 Third Party Libaries
 - [express](https://www.npmjs.com/package/express)
 - [express-session](https://www.npmjs.com/package/express-session)
 - [amqplib](https://www.npmjs.com/package/amqplib)
