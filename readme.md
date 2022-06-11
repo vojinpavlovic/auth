@@ -1,28 +1,39 @@
 # Vasa Knjiga Auth
-Vasa Knjiga Auth is centralised (stateful) authentication and authorization system built with [node.js](https://nodejs.org/en/). Idea is to make scalable authentication service with microservices.
+Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
 
-# How it works
-Vasa Knjiga Auth is session based authentication system that use Redis Datastore for storing sessions and credentials to MySQL database and is connected with microservices via RabbitMQ. Since auth server is isolated, there would be required to do session check in resource server or microservice. It is prevented with nginx auth_request subrequest. How does it work? Firstly nginx api gateway will call ```/auth/required``` which will return ```2xx``` status for success or ```4xx``` for unauthorized access, based on response status nginx would either redirect to resource server endpoint if success or return ```4xx``` status. We have another auth_request subrequest ```/auth/redunant```, it's purpose is if session is valid, but customer tries to access auth routes, such as ex: /login or /register, it will return ```4xx``` status code and ```2xx``` if user is not in session. We want each microservice to hold it's data, auth service will handle credentials data for user and rest of data upon registration will send to user service via queue.
+### Where does Auth Server stand in service oriented architecture
+Vasa Knjiga Auth is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
 
-## Enviornment configuration
-You need to setup your own enviornment configuration. You would need to create .env file in root, copy code block below and paste.
-You need to define ```PORT``` where your auth server is going to listen, default is 3000. Then you would need to setup your redis store, for more information you can check out [Redis Github](https://github.com/redis/redis). There is three parameters ```REDIS_HOST``` default is 127.0.0.1 and ```REDIS_PORT``` that your redis cli listens to, default is 6379 and then you would need to pass your ```REDIS_PASS``` for authenticating with Redis. For storing user data I have used [MySQL](www.mysql.com). You have few params to assign in order to connect with your database. ```DB_HOST``` is a url/ip to your MySQL database, ```DB_PORT``` is port to your MySQL database, ```DB_USER``` is user that handles your database, ```DB_PASSWORD``` is your user auth credentials, then ```DB_DATABASE``` is your database table and ```DB_CONN_LIMIT``` is how maximum concurrent connections in pool can be accepted. For more information you can check [Nodejs MySQL Github](https://github.com/mysqljs/mysql). Since microservices communicate with message broker on AMQP protocol with [RabbitMQ](https://www.rabbitmq.com/) technology, you need to assign your ```AMQP_URL```. If you want quick start with RabbitMQ, there is cloud that hosts your RabbitMQ service for free. Check it out [CloudAMQP](https://www.cloudamqp.com/)
-
+```mermaid
+graph TD;
+    Nginx-->Auth;
+    Auth-->Nginx;
+    Auth-->Publish-->Queue;
+    Nginx-->Resource
+    Resource-->Consume-->Queue
 ```
-PORT=3000
 
-REDIS_HOST="your_redis_host"
-REDIS_PORT="your_redis_port"
-REDIS_PASS="your_redis_password"
+### How does session managment work with microservices
+It's behavior is to either send 2xx for success or 4xx for failure as subrequest for nginx and nginx will either proxy pass if 2xx or return 4xx response to customer.
 
-DB_CONN_LIMIT="your_db_limit"
-DB_HOST="your_db_host"
-DB_PORT="your_db_port"
-DB_USER="your_db_user"
-DB_PASSWORD="your_db_password"
-DB_DATABASE="your_db_table"
+- Case when auth/required returns 2xx status http code
+```mermaid
+graph TD;
+    Customer-->Nginx;
+    Nginx-->Auth/Required;
+    Auth/Required-->Nginx;
+    Nginx-->Protected/Resource;
+    Protected/Resource-->Customer
+```
 
-AMQP_URL="your_amqp_url"
+- Case when auth/required returns 4xx status http code
+```mermaid
+graph TD;
+    Customer-->Nginx;
+    Nginx-->Auth/Required;
+    Auth/Required-->Nginx;
+    Nginx-->Response/4xx;
+    Response/4xx-->Customer;
 ```
 
 ## Dependencies
