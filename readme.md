@@ -78,10 +78,10 @@ REDIS_PASS=""
 AMQP_URL=""
 ```
 
-## Routes 
+## 🛣️ Routes 
 In construction
 
-## Folder Structure
+## 🗀 Folder Structure
 I follow simple folder structure that you can find below. 
 
 ```
@@ -108,7 +108,7 @@ I follow simple folder structure that you can find below.
 - [validator](https://www.npmjs.com/package/validator)
 - [pm2](https://www.npmjs.com/package/pm2)
 
-## MIT License 
+## Vojin Pavlovic ©️ 2022 - MIT License 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
 > "Software"), to deal in the Software without restriction, including
