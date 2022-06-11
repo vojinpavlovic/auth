@@ -78,6 +78,19 @@ REDIS_PASS=""
 AMQP_URL=""
 ```
 
+## Folder Structure
+```
+    .
+    ├── # Top level directory
+        ├── src # Source Files
+            ├── config # Here stands the whole configurations for a application 
+            ├── helpers # Function that execute specific mini tasks
+            ├── routes # All routes handlers
+            ├── routes # SQL or database operations
+            ├── routes # Startup processes in example as mysql, rabbitmq and redis connections
+            ├── utils # Functions that return, print formatted strings or for debugging
+```
+
 ## 🪣 Dependencies
 - [express](https://www.npmjs.com/package/express)
 - [express-session](https://www.npmjs.com/package/express-session)
