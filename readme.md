@@ -78,7 +78,7 @@ REDIS_PASS=""
 AMQP_URL=""
 ```
 
-## Dependencies
+## 🪣 Dependencies
 - [express](https://www.npmjs.com/package/express)
 - [express-session](https://www.npmjs.com/package/express-session)
 - [amqplib](https://www.npmjs.com/package/amqplib)
