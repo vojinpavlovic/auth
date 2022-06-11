@@ -1,6 +1,17 @@
 # Vasa Knjiga Auth
 Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
 
+## Prerequisites
+[MySQL](https://mysql.com), [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/)
+
+- If you are not sure how to host it. Here is how to host your MySQL database on [windows](https://www.cloudways.com/blog/configure-virtual-host-on-windows-10-for-wordpress/), if you are a linux user you can follow this tutorial [linux ubuntu >= 19.04](https://www.geeksforgeeks.org/hosting-mysql-server-on-linux/), for Mac users [MacOS](https://medium.com/macoclock/mysql-on-mac-getting-started-cecb65b78e).
+
+- You need to host your Redis server, [download link](https://redis.io/download/).
+
+- If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
+
+Once you complete this step, go to next [step](#env-configuration) 
+
 ### Where does Auth Server stand in service oriented architecture
 Vasa Knjiga Auth is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
 
@@ -37,17 +48,6 @@ graph TD;
     Nginx-->Response/4xx;
     Response/4xx-->Customer;
 ```
-
-## Prerequisites
-[MySQL](https://mysql.com), [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/)
-
-- If you are not sure how to host it. Here is how to host your MySQL database on [windows](https://www.cloudways.com/blog/configure-virtual-host-on-windows-10-for-wordpress/), if you are a linux user you can follow this tutorial [linux ubuntu >= 19.04](https://www.geeksforgeeks.org/hosting-mysql-server-on-linux/), for Mac users [MacOS](https://medium.com/macoclock/mysql-on-mac-getting-started-cecb65b78e).
-
-- You need to host your Redis server, [download link](https://redis.io/download/).
-
-- If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
-
-Once you complete this step, go to next [step](#env-configuration) 
 
 ## <a href="env-configuration"></a> Env configuration
 In order to run auth server, first you would need to configure enviornment file.
