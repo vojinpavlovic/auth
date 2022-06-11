@@ -53,16 +53,16 @@ Create .env file in root directory, copy the code block below. For more informat
 
 | Param | Type | Desc | Default |
 --- | --- | --- | --- |
-| PORT | Int  | Auth Port that server listens to | 3000
-| DB_CONN_LIMIT | Int | Maximum connection in pool | 20 
-| DB_HOST | String | Ip or url to your MySQL database | None
-| DB_PORT | Int | Port that your MySQL database listens to | None
-| DB_USER | String | User for your MySQL database | None 
-| DB_PASSWORD | String | Password for your user | None
-| DB_DATABASE | String | Database for credentials data | None
-| REDIS_URL | String | Url to your Redis database | None 
-| REDIS_PASS | String | Password to your Redis database | None 
-| AMQP_URL | String | Url to your AMQP RabbitMQ message broker | None
+| PORT | Int  | Auth Port that server listens to | 3000 |
+| DB_CONN_LIMIT | Int | Maximum connection in pool | 20 |
+| DB_HOST | String | Ip or url to your MySQL database | None |
+| DB_PORT | Int | Port that your MySQL database listens to | None |
+| DB_USER | String | User for your MySQL database | None |
+| DB_PASSWORD | String | Password for your user | None |
+| DB_DATABASE | String | Database for credentials data | None |
+| REDIS_URL | String | Url to your Redis database | None |
+| REDIS_PASS | String | Password to your Redis database | None |
+| AMQP_URL | String | Url to your AMQP RabbitMQ message broker | None |
 ```
 PORT=3000
 
