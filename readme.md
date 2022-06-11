@@ -88,3 +88,4 @@ AMQP_URL=""
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [mysql](https://www.npmjs.com/package/mysql)
 - [validator](https://www.npmjs.com/package/validator)
+- [pm2](https://www.npmjs.com/package/pm2)
