@@ -5,27 +5,56 @@ const RedisStore = require("connect-redis")(session);
 const sessionOptions = require("../config/session");
 
 /* Making redis store client connection */
+const url = process.env.REDIS_URL || "127.0.0.1", port = process.env.REDIS_PORT || 6379, pass = process.env.REDIS_PASS || ""
+
 const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST || "127.0.0.1",
-    port: process.env.REDIS_PORT || 6379,
-    password: process.env.REDIS_PASS || "",
-    legacyMode: true
+    url:`redis://${url}:${port}`,
+    legacyMode: true // Without this, request hangs when checking session
 });
 
+var reconnecting = false, counter = 0, maxCounter = 50, reconnectTimeout
 /* Connect to redis client */
 redisClient.connect()
 
+/* 
+    Using command to authenticate upon connection 
+    This is temporary solution, later it will be reconstructed with ACLs
+*/
+
 /* Events */
 redisClient.on("error", (err) => {
-    console.log(`Redis Connection has been failed ${err}`);
-    process.exit(1) // Exit the process
+    if (counter == 0) {
+        reconnecting = true
+        console.log("Redis connect error >> " + err)
+        return counter ++
+    }
+
+    if (!reconnecting) {
+        return counter = 0
+    }
+
+    if (counter < maxCounter) {
+        console.log(`Reconnecting to Redis CLI ${counter}/${maxCounter}`)
+        counter ++ 
+    }
+
+    if (counter >= maxCounter) {
+        console.error("Redis CLI failed to reconnect")
+        process.exit(1)
+    }
 });
 
 redisClient.on("connect", (err) => {
     if (err) throw err
+    
+    if (reconnecting) {
+        console.log("Redis CLI successfully reconnected")
+        reconnecting = false
+    }
 })
 
 redisClient.on("ready", () => {
+    redisClient.sendCommand(['auth', pass])
     console.log(["Redis Client is Ready"]);
 });
 

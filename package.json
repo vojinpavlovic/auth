@@ -4,7 +4,8 @@
   "description": "Auth Server for Vasa Knjiga",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pm2 start index.js",
+    "dev": "npx nodemon"
   },
   "author": "Vojin Pavlovic",
   "license": "MIT",
@@ -16,6 +17,7 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mysql": "^2.18.1",
+    "pm2": "^5.2.0",
     "redis": "^4.1.0",
     "validator": "^13.7.0"
   }

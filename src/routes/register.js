@@ -39,6 +39,7 @@ const register = async (req, res) => {
         firstname: firstname, 
         lastname: lastname
     })
+    
     /* Send welcome email */
 
     /* Send successfull registration */

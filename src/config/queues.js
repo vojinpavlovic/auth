@@ -4,7 +4,7 @@ const Config = [
         options: {
             durable: true,
         },
-        desc: "For creating new user, so user service can consume it"
+        desc: "Posting user to user microservice"
     }
 ]
 
