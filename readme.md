@@ -12,6 +12,7 @@ Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Arch
 
 #### Where does Auth Server stand in service oriented architecture
 Vasa Knjiga Auth is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
+You can use [vasaknjiga_gateway](https://github.com/vojinpavlovic/vasaknjiga_gateway)
 
 ```mermaid
 graph TD;
@@ -105,7 +106,7 @@ I follow simple folder structure that you can find below.
 - [validator](https://www.npmjs.com/package/validator)
 - [pm2](https://www.npmjs.com/package/pm2)
 
-## Vojin Pavlovic ©️ 2022 - MIT License 
+## MIT License 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
 > "Software"), to deal in the Software without restriction, including
