@@ -9,6 +9,7 @@ Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Arch
 - Permissions by group
 - Verification
 - Password Reset
+- Configurable
 
 ## 📋 Prerequisites
 [MySQL](https://mysql.com), [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/)
