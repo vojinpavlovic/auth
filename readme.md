@@ -1,6 +1,15 @@
 # 📚 Vasa Knjiga Auth
 Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
 
+## Features
+- Authentication
+- Authorization
+- Session managment
+- 2fa (soon)
+- Permissions by group
+- Verification
+- Password Reset
+
 ## 📋 Prerequisites
 [MySQL](https://mysql.com), [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/)
 
