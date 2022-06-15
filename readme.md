@@ -21,8 +21,8 @@ Auth system build in [node.js](https://nodejs.org/en/). Architecture is service 
 - If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
 
 #### Where does Auth Server stand in service oriented architecture
-Vasa Knjiga Auth is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
-You can use [vasaknjiga_gateway](https://github.com/vojinpavlovic/vasaknjiga_gateway)
+Auth server is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
+You can use [nginx_gateway](https://github.com/vojinpavlovic/nginx_gateway)
 
 ```mermaid
 graph TD;
@@ -87,21 +87,6 @@ DB_DATABASE=""
 REDIS_URL=""
 REDIS_PASS=""
 AMQP_URL=""
-```
-
-## 🗀 Folder Structure
-I follow simple folder structure that you can find below. 
-
-```
-    .
-    ├── # Top level directory
-        ├── src # Source Files
-            ├── config # Here stands the whole configurations for a application 
-            ├── helpers # Function that execute specific mini tasks
-            ├── routes # All routes handlers
-            ├── sql # SQL or database operations
-            ├── startup # Startup processes in example as mysql, rabbitmq and redis connections
-            ├── utils # Functions that return, print formatted strings or for debugging
 ```
 
 ## 🪣 Third Party Libaries
