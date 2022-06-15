@@ -4,6 +4,7 @@ const amqp = require("amqplib");
 /* Local libs and vars */
 const queues = require("../config/queues");
 const amqpServer = process.env.AMQP_URL || "amqp://localhost:5673";
+const connEmitter = require("../events/conn")
 var connection, channel
 
 module.exports = {
@@ -17,7 +18,7 @@ module.exports = {
                 channel.assertQueue(queue.name, queue.options)
                 console.log(`RabbitMQ Queue asserted >> ${queue.name}, desc: ${queue.desc}`)
             });
-            console.log(["AMQP Server has been established"])
+            connEmitter.emit("rabbitmq-ready")
         } catch (error) {
             console.error(error)
             process.exit(1)

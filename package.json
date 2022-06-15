@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "pm2 start index.js",
-    "dev": "npx nodemon"
+    "dev": "npx nodemon",
+    "test": "mocha"
   },
   "author": "Vojin Pavlovic",
   "license": "MIT",
@@ -22,5 +23,10 @@
     "pm2": "^5.2.0",
     "redis": "^4.1.0",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.3"
   }
 }

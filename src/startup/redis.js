@@ -3,6 +3,8 @@ const redis = require("redis");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const sessionOptions = require("../config/session");
+const connEmitter = require("../events/conn")
+
 
 /* Making redis store client connection */
 const url = process.env.REDIS_URL || "127.0.0.1", port = process.env.REDIS_PORT || 6379, pass = process.env.REDIS_PASS || ""
@@ -54,8 +56,8 @@ redisClient.on("connect", (err) => {
 })
 
 redisClient.on("ready", () => {
+    connEmitter.emit("redis-ready")
     redisClient.sendCommand(['auth', pass])
-    console.log(["Redis Client is Ready"]);
 });
 
 /* Initialise session */
