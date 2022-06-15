@@ -1,5 +1,5 @@
-# 📚 Vasa Knjiga Auth
-Vasa Knjiga Auth is auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
+# 📚 Auth
+Auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
 
 ## Features
 - Authentication
