@@ -1,8 +1,9 @@
-const hashPassword = require("../helpers/hash-password");
+require("dotenv").config();
 const validate = require("../utils/register-validation");
-const findUser = require("../controllers/find-user");
-const insertUser = require("../controllers/insert-user");
-const rabbitmq = require("../startup/rabbitmq");
+const hashPassword = require("../helpers/hash-password");
+const findUser = require("../sql/find-user");
+const insertUser = require("../sql/insert-user");
+
 
 const register = async (req, res) => {
     /* Check if inputs are valid */
@@ -28,25 +29,17 @@ const register = async (req, res) => {
     if (!hashedPassword) res.status(500).end()
 
     /* Insert credentials to database */
-    const newUser = await insertUser(email, hashedPassword) 
+    const newUser = await insertUser(email, hashedPassword, firstname, lastname) 
 
     /* If there is no success */
     if (!newUser.success) return res.status(500).end()
-
-    /* Send to user service */
-    rabbitmq.sendToQueue("new-user", {
-        userID: newUser.data,
-        firstname: firstname, 
-        lastname: lastname
-    })
     
-    /* Send welcome email */
+    /* Send verify email */
 
     /* Send successfull registration */
-
     res.status(201).json({
         success: true,
-        msg: "new-user"
+        msg: "successfull-registration"
     })
 }
 

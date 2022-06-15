@@ -5,7 +5,7 @@ const findUser = async ({email}) => {
         return { success: false, msg: "bad-request" }
     }
 
-    const sql = "SELECT id, email_address, password, status, created_at FROM users WHERE email_address = ?"
+    const sql = "SELECT id, first_name, last_name, email_address, password, status, created_at FROM users WHERE email_address = ?"
     const params = [email]
 
     /* Querying result */

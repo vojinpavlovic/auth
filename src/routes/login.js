@@ -1,4 +1,4 @@
-const findUser = require("../controllers/find-user");
+const findUser = require("../sql/find-user");
 const validate = require("../utils/login-validation");
 const comparePassword = require('../helpers/compare-password');
 
@@ -28,10 +28,13 @@ const login = async (req, res) => {
     if (!passwordMatch) return res.status(403).end()
 
     /* Send success response and make session */
-    req.session.userData = {
+    const payload = {
         id: user.result.id,
+        email: user.result.email_address,
         status: user.result.status
     }
+
+    req.session.userData = payload
 
     res.status(200).json({
         success: true,

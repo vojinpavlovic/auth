@@ -4,20 +4,25 @@ const Config = {
         method: 'get',
         handler: require('../routes/auth-required')
     },
-    auth_redunant : {
-        endpoint: '/auth/redunant',
-        method: 'get',
-        handler: require('../routes/auth-redunant')
-    },
     login: {
-        endpoint: '/auth/login',
-        method: 'get',
+        endpoint: '/login',
+        method: 'post',
         handler: require('../routes/login')
     },
     register: {
-        endpoint: '/auth/register',
+        endpoint: '/register',
         method: 'post',
         handler: require('../routes/register')
+    },
+    newCode: {
+        endpoint: '/newCode',
+        method: 'get',
+        handler: require('../routes/new-code')
+    },
+    codeVerify: {
+        endpoint: '/verifyCode',
+        method: 'get',
+        handler: require('../routes/verify-code')
     }
 }
 

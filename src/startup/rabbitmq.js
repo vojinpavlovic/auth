@@ -14,8 +14,8 @@ module.exports = {
             connection = await amqp.connect(amqpServer)
             channel = await connection.createConfirmChannel();
             queues.map(queue => {
-                console.log(`RabbitMQ Queue asserted >> ${queue.name}, desc: ${queue.desc}`)
                 channel.assertQueue(queue.name, queue.options)
+                console.log(`RabbitMQ Queue asserted >> ${queue.name}, desc: ${queue.desc}`)
             });
             console.log(["AMQP Server has been established"])
         } catch (error) {

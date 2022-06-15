@@ -1,10 +1,10 @@
 const Config = [
     {
-        name: "new-user",
+        name: "VERIFICATION-EMAIL",
         options: {
             durable: true,
         },
-        desc: "Posting user to user microservice"
+        desc: "SENDING VERIFICATION EMAIL"
     }
 ]
 

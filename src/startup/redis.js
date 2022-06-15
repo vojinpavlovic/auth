@@ -12,7 +12,7 @@ const redisClient = redis.createClient({
     legacyMode: true // Without this, request hangs when checking session
 });
 
-var reconnecting = false, counter = 0, maxCounter = 50, reconnectTimeout
+var reconnecting = false, counter = 0, maxCounter = 50
 /* Connect to redis client */
 redisClient.connect()
 
@@ -63,4 +63,40 @@ const store = new RedisStore({ client: redisClient })
 const sess = session(sessionOptions(store))
 
 /* Export */
-module.exports = (app) => app.use(sess)
+module.exports = {
+    async get(key) {
+        const promise = new Promise((resolve, reject) => {
+            redisClient.get(key, (err, reply) => {
+                if (err) {
+                    return reject(err)
+                }
+
+                resolve(reply)
+            })
+        })
+
+        return promise.then(res => res).catch(err => err)
+    },
+
+    set(key, val, ttl) {
+        const promise = new Promise((resolve, reject) => {
+            if (ttl) {
+                redisClient.set(key, val, "EX", ttl, (err, reply) => {
+                    if (err) return reject(err)
+                    resolve(reply)
+                })
+            } else {
+                redisClient.set(key, val, (err, reply) => {
+                    if (err) return reject(err)
+                    resolve(reply)
+                }) 
+            }
+        })
+
+        return promise.then(res => res).catch(err => err)
+    },
+
+    initSession(app) {
+        app.use(sess)
+    },
+}
