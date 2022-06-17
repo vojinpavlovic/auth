@@ -7,7 +7,7 @@ Architecture is service oriented that communicate via message queue or direct RE
 - Prerequisites
 - Get Started
 - How it Works
-- [Configuration](#⚙️-Configuration)
+- [Configuration](#Configuration)
 - Third party libaries
 - License
 
