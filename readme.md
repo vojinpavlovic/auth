@@ -11,6 +11,8 @@ Table of contents
   * [Get Started](#Get-started)
   * [How it Works](#How-it-Works)
   * [Configuration](#Configuration)
+  * [Dependencies](#Dependencies)
+  * [License](#License)
 <!--te-->
 
 Features
@@ -148,7 +150,8 @@ For verification code and password reset there is different parametres that you 
 One rule is to return a handler with {success: true/false, ...rest-of-your-data}
 - ```delAfterHandling``` it is a boolean, if you wish to use this and success is true from your handler, code will be deleted after successfull verification. In user case, once user status is changed from verification to active, it will delete such code in Redis, to tell user (if user attemps again) that code is used.
 
-## 🪣 Third Party Libaries
+Dependencies
+-------------
 - [express](https://www.npmjs.com/package/express)
 - [express-session](https://www.npmjs.com/package/express-session)
 - [amqplib](https://www.npmjs.com/package/amqplib)
@@ -160,7 +163,9 @@ One rule is to return a handler with {success: true/false, ...rest-of-your-data}
 - [validator](https://www.npmjs.com/package/validator)
 - [pm2](https://www.npmjs.com/package/pm2)
 
-## MIT License 
+License
+------------- 
+## Mit License
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
 > "Software"), to deal in the Software without restriction, including
