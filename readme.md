@@ -9,8 +9,8 @@ Table of contents
   * [Features](#Features)
   * [Prerequisites](#Prerequisites)
   * [Get Started](#Get-started)
-  * [Configuration](#Configuration)
   * [How it Works](#How-it-Works)
+  * [Configuration](#Configuration)
 <!--te-->
 
 Features
