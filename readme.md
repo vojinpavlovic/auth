@@ -6,19 +6,15 @@ Table of contents
 =================
 
 <!--ts-->
-   * [Configuration](#Configuration)
+  * [Features](#Features)
+  * [Prerequisites](#Prerequisites)
+  * [Get Started](#Get-started)
+  * [Configuration](#Configuration)
+  * [How it Works](#How-it-Works)
 <!--te-->
 
-## Table of Contents
-- [Features](#Features)
-- Prerequisites
-- Get Started
-- How it Works
-- [Configuration](#Configuration)
-- Third party libaries
-- License
-
-## Features
+Features
+--------
 - Authentication
 - Authorization
 - Session managment
@@ -28,16 +24,19 @@ Table of contents
 - Password Reset
 - Configurable
 
-## 📋 Prerequisites
+Prerequisites
+-------------
 - [Nginx Gateway](https://github.com/vojinpavlovic/nginx_gateway)
 - [MySQL](https://mysql.com)
 - [Redis](https://redis.io/)
 - [RabbitMQ](https://www.rabbitmq.com)
 
-## Get Started
+Get Started
+-------------
 In construction
 
-## How it works
+How it Works
+------------
 
 #### Where does Auth Server stand in service oriented architecture
 Auth server is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
@@ -78,7 +77,7 @@ graph TD;
 ```
 
 Configuration
-=============
+-------------
 Configuration is one of the project feature. Beside that, it is not clone and run, firstly it needs to be configured to mysql, redis and rabbitmq.
 Create .env file and copy everything from [.env.example](https://github.com/vojinpavlovic/auth/blob/main/env.example)
 
