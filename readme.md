@@ -147,8 +147,8 @@ For verification code and password reset there is different parametres that you 
 - ```auth``` in case if you want for user to create new code if authenticated.
 - ```codeBytesLengths``` is how big you want your string to be random generated
 - ```handler``` once your code is validated in /verifyCode endpoint, if handler exist it will be called, if you wish to handle. In my example it is verify user. When user call endpoint /verifyCode endpoint, if code is valid it will run SQL to MySQL and change status from verification to active.
-One rule is to return a handler with {success: true/false, ...rest-of-your-data}
-- ```delAfterHandling``` it is a boolean, if you wish to use this and success is true from your handler, code will be deleted after successfull verification. In user case, once user status is changed from verification to active, it will delete such code in Redis, to tell user (if user attemps again) that code is used.
+One rule is to return a handler with {success: true/false, ...rest-of-your-data}, but keep in mind, it is also returned to the end-user.
+- ```delAfterHandling``` it is a boolean, if you wish to use this and success is true from your handler, code will be deleted after success is true. In user case, once user status is changed from verification to active, it will delete such code in Redis, to tell user (if user attemps again) that code is used.
 
 Dependencies
 -------------
