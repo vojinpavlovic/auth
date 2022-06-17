@@ -1,8 +1,13 @@
 const chai = require("chai")
 const hashPassword = require('../src/helpers/hash-password');
 const comparePassword = require('../src/helpers/compare-password');
-
 const expect = chai.expect;
+
+if (process.env.NODE_ENV != "test") {
+    console.error("Cannot run test, application is not in test enviornment")
+    console.error("Go to .env file and change NODE_ENV to test")
+    process.exit(1)
+}
 
 describe('Running tests on hashing password', () => {
     it('Hashing password >> password is undefined, it should return false', async () => {

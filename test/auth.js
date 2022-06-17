@@ -1,16 +1,10 @@
 require("dotenv").config()
 /* Importing instance of app */
 const server = require("../index.js")
-const query = require('../src/startup/mysql')
+const { query } = require("../startup/mysql")
 
 /* Requiring supertest */
 const request = require('supertest');
-
-if (process.env.NODE_ENV != "test") {
-    console.error("Cannot run test, application is not in test enviornment")
-    console.error("Go to .env file and change NODE_ENV to test")
-    process.exit(1)
-}
 
 /* Let's define register tests */
 

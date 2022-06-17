@@ -1,65 +1,34 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const config = require('./lib/config/app');
+const rabbitmq = require('./lib/startup/rabbitmq')
+const redis = require('./lib/startup/redis');
+const router = require('./lib/startup/router');
+const mysql = require('./lib/startup/mysql')
+
 const port = process.env.PORT || 4000;
-const rabbitmq = require('./src/startup/rabbitmq')
-const { initSession } = require('./src/startup/redis');
-const connEvents = require('./src/events/conn')
+const nodeEnv = process.env.NODE_ENV || "development"
+
+if (!config.allowedEnviornments.includes(nodeEnv)) {
+    console.error(`Enviornment >> ${nodeEnv} << is not allowed!`)
+    console.error(`Allowed enviornments are:`)
+    console.error(config.allowedEnviornments)
+    process.exit(1)
+}
 
 /* Express settings */
 app.use(express.json());
 
 /* Startup Processes*/
-initSession(app)
+mysql.connect()
+redis.initSession(app)
 rabbitmq.connect();
-require('./src/startup/router')(app);
-require('./src/startup/mysql');
+router.establishRoutes(app)
 
-/* Handling connections */
-var connections = {
-    mysql: false,
-    redis: false,
-    rabbitmq: false
-}
-
-connEvents.on("mysql-ready", () => {
-    connections["mysql"] = true
-    console.log(["Connection with MySQL has been established"])
-})
-
-connEvents.on("redis-ready", () => {
-    connections["redis"] = true
-    console.log(["Redis Client is Ready"]);
-})
-
-connEvents.on("rabbitmq-ready", () => {
-    connections["rabbitmq"] = true
-    console.log(["AMQP Server has been established"])
-})
-
-/* Listener */
-
-const listener = () => {
-    const tryLaunch = setInterval(() => {
-        var doLaunch = true
-        
-        for (const key in connections) {
-            const connection = connections[key]
-            if (!connection) {
-                doLaunch = false
-            }
-        }
-    
-        if (doLaunch) {
-            clearInterval(tryLaunch)
-            app.listen(port, () => console.log([`Auth server is listening to ${port}`]))
-            return app
-        }
-    }, 500);   
-}
 
 if (process.env.NODE_ENV != "test") {
-    listener()
+    app.listen(port, () => console.log([`Auth server is listening to ${port}`]))
 } else {
     module.exports = app
 }
