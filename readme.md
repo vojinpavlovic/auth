@@ -112,7 +112,6 @@ Router is initialised by itself in /lib/startup/router.js, you just need to defi
         method: 'get',
         handler: require('../routes/auth-required')
     },
-    
 ```
 #### Code.js
 For verification code and password reset there is different parametres that you can customize in /lib/config/code.js
