@@ -6,7 +6,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [Configuration](#⚙️-Configuration)
+   * [Configuration](#Configuration)
 <!--te-->
 
 ## Table of Contents
@@ -77,8 +77,8 @@ graph TD;
     Response/4xx-->Customer;
 ```
 
-⚙️ Configuration
-================
+Configuration
+=============
 Configuration is one of the project feature. Beside that, it is not clone and run, firstly it needs to be configured to mysql, redis and rabbitmq.
 Create .env file and copy everything from [.env.example](https://github.com/vojinpavlovic/auth/blob/main/env.example)
 
