@@ -1,5 +1,6 @@
 # 📚 Auth
-Auth system build in [node.js](https://nodejs.org/en/). Architecture is service oriented that communicate via message queue or direct REST API calls.
+Auth System built in [node.js](https://nodejs.org/en/). 
+Architecture is service oriented that communicate via message queue or direct REST API calls.
 
 ## Features
 - Authentication
@@ -12,13 +13,13 @@ Auth system build in [node.js](https://nodejs.org/en/). Architecture is service 
 - Configurable
 
 ## 📋 Prerequisites
-[MySQL](https://mysql.com), [Redis](https://redis.io/), [RabbitMQ](https://www.rabbitmq.com/)
+- [Nginx Gateway](https://github.com/vojinpavlovic/nginx_gateway)
+- [MySQL](https://mysql.com)
+- [Redis](https://redis.io/)
+- [RabbitMQ](https://www.rabbitmq.com)
 
-- If you are not sure how to host it. Here is how to host your MySQL database on [windows](https://www.cloudways.com/blog/configure-virtual-host-on-windows-10-for-wordpress/), if you are a linux user you can follow this tutorial [linux ubuntu >= 19.04](https://www.geeksforgeeks.org/hosting-mysql-server-on-linux/), for Mac users [MacOS](https://medium.com/macoclock/mysql-on-mac-getting-started-cecb65b78e).
-
-- You need to host your Redis server, [download link](https://redis.io/download/).
-
-- If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
+## Get Started
+In construction
 
 #### Where does Auth Server stand in service oriented architecture
 Auth server is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
@@ -58,36 +59,67 @@ graph TD;
     Response/4xx-->Customer;
 ```
 
-## ⚙️ Env configuration
-In order to run auth server, first you would need to configure enviornment file.
-Create .env file in root directory, copy the code block below. For more information of which type and is there default value you can check table below
+## ⚙️ Configuration
+Configuration is one of the project feature. Beside that, it is not clone and run, firstly it needs to be configured to mysql, redis and rabbitmq.
+Create .env file and copy everything from [.env.example](https://github.com/vojinpavlovic/auth/blob/main/env.example)
+
+### ENV Configuration
+
+#### Node Enviornment and port
+There is three types of ```NODE_ENV```, ```development```, ```test``` and ```production```. If you try to run any other enviornment, application will close.
 
 | Param | Type | Desc | Default |
 --- | --- | --- | --- |
-| PORT | Int  | Auth Port that server listens to | 3000 |
-| DB_CONN_LIMIT | Int | Maximum connection in pool | 20 |
-| DB_HOST | String | Ip or url to your MySQL database | None |
-| DB_PORT | Int | Port that your MySQL database listens to | None |
-| DB_USER | String | User for your MySQL database | None |
-| DB_PASSWORD | String | Password for your user | None |
-| DB_DATABASE | String | Database for credentials data | None |
-| REDIS_URL | String | Url to your Redis database | None |
-| REDIS_PASS | String | Password to your Redis database | None |
-| AMQP_URL | String | Url to your AMQP RabbitMQ message broker | None |
-```
-PORT=3000
+| PORT | Int  | Port that server listens to | 3000 |
+| NODE_ENV | String  | In which enviornment you want to run node app | development |
 
-DB_CONN_LIMIT=20
-DB_HOST=""
-DB_PORT=3306
-DB_USER=""
-DB_PASSWORD=""
-DB_DATABASE=""
+#### MySQL database
+You probably noticed bold **PROD** in ```DB_PROD_CONN_LIMIT``` below in table. Since there is three enviornments PROD for production, DEV for development and TEST for test.
+It is recommended to use three different databases, one for production, one for development and one for test. 
 
-REDIS_URL=""
-REDIS_PASS=""
-AMQP_URL=""
+| Param | Type | Desc | Default |
+--- | --- | --- | --- |
+| DB_**PROD**_CONN_LIMIT | Int  | Maximum connection in MySQL pool | 10 |
+| DB_**PROD**_HOST | String  | IP or URL to your database | 127.0.0.1 |
+| DB_**PROD**_PORT | Int  | Port that your database listens to | 3306 |
+| DB_**PROD**_USER | String  | Your MySQL user | root |
+| DB_**PROD**_PASSWORD | String  | Password for your MySQL user | ```empty string``` |
+| DB_**PROD**_DATABASE | String  | Your database in MySQL | unnamed_users |
+
+#### Redis Datastore
+| Param | Type | Desc | Default |
+--- | --- | --- | --- |
+| REDIS_**PROD**_URL | String | Url to your Redis host | 127.0.0.1 |
+| REDIS_**PROD**_PORT | String | Port to your Redis host | 6379 |
+| REDIS_**PROD**_PASS | String | Pass to authenticate to Redis | ```empty string``` |
+| REDIS_**PROD**_DB | INT | DB in your Redis (by default there is 15) | ```1``` in PROD, ```2``` in DEV, ```3``` in TEST enviornments |
+
+#### AMQP URL
+
+If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your RabbitMQ service for free (not production ready) [CloudAMQP](https://www.cloudamqp.com/). Otherwise, instructions how to install RabbitMQ on your machine. [Download and Installing RabbitMQ](https://www.rabbitmq.com/download.html)
+
+| Param | Type | Desc | Default |
+--- | --- | --- | --- |
+| AMQP_URL | String | Url to your AMQP | ```empty``` |
+
+#### Code.js
+For verification code and password reset there is different parametres that you can customize in /lib/config/code.js
+
 ```
+    "type": {
+        ttl: 300,
+        auth: true,
+        codeBytesLengths: 64,
+        handler: require('../handlers/verify-user'),
+        delAfterHandling: true
+    },
+```
+- ```ttl``` is time to live for code, once (in this example) 300 seconds pass it will be auto deleted by Redis.
+- ```auth``` in case if you want for user to create new code if authenticated.
+- ```codeBytesLengths``` is how big you want your string to be random generated
+- ```handler``` once your code is validated in /verifyCode endpoint, if handler exist it will be called, if you wish to handle. In my example it is verify user. When user call endpoint /verifyCode endpoint, if code is valid it will run SQL to MySQL and change status from verification to active.
+One rule is to return a handler with {success: true/false, ...rest-of-your-data}
+- ```delAfterHandling``` it is a boolean, if you wish to use this and success is true from your handler, code will be deleted after successfull verification. In user case, once user status is changed from verification to active, it will delete such code in Redis, to tell user (if user attemps again) that code is used.
 
 ## 🪣 Third Party Libaries
 - [express](https://www.npmjs.com/package/express)
