@@ -21,6 +21,8 @@ Architecture is service oriented that communicate via message queue or direct RE
 ## Get Started
 In construction
 
+## How it works
+
 #### Where does Auth Server stand in service oriented architecture
 Auth server is isolated, closely related with nginx api gateway. It can communicate via message queues to other microservices.
 You can use [nginx_gateway](https://github.com/vojinpavlovic/nginx_gateway)
