@@ -123,7 +123,6 @@ If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your R
 | AMQP_URL | String | Url to your AMQP | ```empty``` |
 
 #### Routes
-Router is initialised by itself in /lib/startup/router.js, you just need to define it's endpoint, method and get.
 ```
     name_of_endpoint : {
         endpoint: '/some/endpoint',
@@ -132,23 +131,21 @@ Router is initialised by itself in /lib/startup/router.js, you just need to defi
     },
 ```
 #### Code.js
-For verification code and password reset there is different parametres that you can customize in /lib/config/code.js
 
 ```
     "type": {
         ttl: 300,
         auth: true,
         codeBytesLengths: 64,
-        handler: require('../handlers/verify-user'),
+        handler: require('../handlers/some-handler'),
         delAfterHandling: true
     },
 ```
-- ```ttl``` is time to live for code, once (in this example) 300 seconds pass it will be auto deleted by Redis.
-- ```auth``` in case if you want for user to create new code if authenticated.
-- ```codeBytesLengths``` is how big you want your string to be random generated
-- ```handler``` once your code is validated in /verifyCode endpoint, if handler exist it will be called, if you wish to handle. In my example it is verify user. When user call endpoint /verifyCode endpoint, if code is valid it will run SQL to MySQL and change status from verification to active.
-One rule is to return a handler with {success: true/false, ...rest-of-your-data}, but keep in mind, it is also returned to the end-user.
-- ```delAfterHandling``` it is a boolean, if you wish to use this and success is true from your handler, code will be deleted after success is true. In user case, once user status is changed from verification to active, it will delete such code in Redis, to tell user (if user attemps again) that code is used.
+- ```ttl``` Expiration time for code in Redis Datastore. Code is auto deleted once time has passed. 
+- ```auth``` There is situations where you need user to be authenticated to request code, set this to true if the case.
+- ```codeBytesLengths``` Length of generated random string.
+- ```handler``` When code is validated, handler is called in /verifyCode route if exist in config. Handler must return data with {success: true/false, ...rest of data}. Handler result is returned in response to end user, so be carefull what you put in return.
+- ```delAfterHandling``` If handler return { success: true } it will delete code in Redis Datastore
 
 Dependencies
 -------------
