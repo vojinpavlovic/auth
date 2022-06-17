@@ -104,6 +104,16 @@ If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your R
 --- | --- | --- | --- |
 | AMQP_URL | String | Url to your AMQP | ```empty``` |
 
+#### Routes
+Router is initialised by itself in /lib/startup/router.js, you just need to define it's endpoint, method and get.
+```
+    name_of_endpoint : {
+        endpoint: '/some/endpoint',
+        method: 'get',
+        handler: require('../routes/auth-required')
+    },
+    
+```
 #### Code.js
 For verification code and password reset there is different parametres that you can customize in /lib/config/code.js
 
