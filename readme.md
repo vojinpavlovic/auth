@@ -6,7 +6,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [Configuration](#configuration)
+   * [Configuration](#⚙️-configuration)
 <!--te-->
 
 ## Table of Contents
