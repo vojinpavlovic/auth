@@ -1,3 +1,4 @@
+require('./etc/prevent-accidents')
 require('dotenv').config();
 const express = require('express');
 const app = express();
