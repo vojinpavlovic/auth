@@ -123,7 +123,7 @@ If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your R
 | AMQP_URL | String | Url to your AMQP | ```empty``` |
 
 #### Prevent Accidents
-By default accident prevention is disabled, but you can enable in .env for key ENABLE_ACCIDENTS_CHECK. By enabling it you need to pass "1" otherwise
+By default accident prevention is disabled, but you can enable in .env for key ENABLE_ACCIDENTS_CHECK. By enabling it you need to pass ```1``` otherwise
 it will be false.
 
 First, what accidents can we prevent. Let's assume you already established Auth Server and run test, test might in future require to Truncate users table
