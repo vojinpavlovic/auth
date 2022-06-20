@@ -122,6 +122,18 @@ If you wish to start fast on RabbitMQ, there is cloud hosting, that hosts your R
 --- | --- | --- | --- |
 | AMQP_URL | String | Url to your AMQP | ```empty``` |
 
+#### Prevent Accidents
+By default accident prevention is disabled, but you can enable in .env for key ENABLE_ACCIDENTS_CHECK. By enabling it you need to pass "1" otherwise
+it will be false.
+
+First, what accidents can we prevent. Let's assume you already established Auth Server and run test, test might in future require to Truncate users table
+we don't want that in dev or production, right? But that's okay test will always run in test enviornment, but accidents happens accidently, there is 
+possibility to check same database name for both PROD and DEV in TEST variable. This little script will check if database names are same, if so application will not procceed to launch and will exit with error.
+
+| Param | Type | Desc | Default |
+--- | --- | --- | --- |
+| ENABLE_ACCIDENTS_CHECK | String/Number | Enabling for accident checks | 0 ```false``` |
+
 #### Routes
 ```
     name_of_endpoint : {
