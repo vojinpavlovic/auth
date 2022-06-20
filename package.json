@@ -6,7 +6,7 @@
   "scripts": {
     "start": "pm2 start index.js",
     "dev": "npx nodemon",
-    "test": "mocha"
+    "test": "mocha test/**/*.js"
   },
   "author": "Vojin Pavlovic",
   "license": "MIT",
