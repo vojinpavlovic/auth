@@ -2,6 +2,8 @@ require("dotenv").config()
 const chai = require("chai")
 const expect = chai.expect;
 
+// Change enviornment to testing
+
 //Libaries for testing
 const { query } = require('../../lib/startup/mysql')
 const insertUser = require('../../lib/sql/insert-user');

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "pm2 start index.js",
     "dev": "npx nodemon",
-    "test": "mocha test/**/*.js"
+    "test": "cross-env NODE_ENV=test mocha test/**/*.js"
   },
   "author": "Vojin Pavlovic",
   "license": "MIT",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
     "mocha": "^10.0.0",
     "supertest": "^6.2.3"
   }
